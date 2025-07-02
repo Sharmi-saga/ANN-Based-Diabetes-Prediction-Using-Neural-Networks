@@ -2,88 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <!-- Fix zoom on mobile -->
     <title>Diabetes Prediction</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #a8d08d, #4caf50); /* Soft green gradient */
             margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-
-        h1 {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
-            color: #2e3d49;
+            width: 100%;
         }
 
         .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff; /* White background for the form */
+            padding: 60px; /* Increased padding */
+            border-radius: 20px; /* More rounded corners */
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+            max-width: 700px; /* Increased form width */
+            width: 100%;
+            text-align: left;
+        }
+
+        .form-header {
+            background: linear-gradient(145deg, #4caf50, #2e8b57); /* Gradient background for the heading */
+            color: white;
+            font-size: 36px;
+            padding: 20px;
+            margin: 0 0 30px 0;
+            border-radius: 8px 8px 0 0; /* Rounded top corners */
+            font-weight: normal; /* Removed bold */
+            text-align: center;
         }
 
         label {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 8px;
             display: block;
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 10px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             margin-bottom: 20px;
             font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background-color: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
         button {
-            background-color: #4CAF50;
+            background: linear-gradient(145deg, #4CAF50, #2e8b57); /* Attractive gradient */
             color: white;
-            font-size: 16px;
-            padding: 12px;
-            border-radius: 5px;
+            font-size: 18px;
+            padding: 14px;
+            border-radius: 10px;
             border: none;
             width: 100%;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #45a049;
+            text-align: center;
+            transition: none; /* Removed hover effect */
         }
 
         .result {
             margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
             text-align: center;
+            font-size: 20px;
             color: #333;
+            font-weight: bold;
         }
 
+        .result h3 {
+            margin: 0;
+        }
 
-        @media screen and (max-width: 600px) {
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) {
             .form-container {
-                padding: 20px;
+                padding: 40px;
+                max-width: 90%; /* Ensure form doesn't get too wide on larger screens */
+            }
+
+            .form-header {
+                font-size: 28px;
             }
 
             button {
-                padding: 10px;
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            input {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .form-container {
+                padding: 30px;
+                max-width: 80%; /* Reduce form size for tablets */
+            }
+
+            .form-header {
+                font-size: 24px;
+            }
+
+            button {
                 font-size: 14px;
+                padding: 10px;
+            }
+
+            input {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .form-header {
+                font-size: 22px;
+            }
+
+            .form-container {
+                padding: 20px;
+                max-width: 95%; /* Full width on small screens */
+            }
+
+            input {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Diabetes Prediction</h1>
     <div class="form-container">
+        <div class="form-header">
+            Diabetes Prediction
+        </div>
         <form action="/predict" method="POST">
             <label for="pregnancies">Pregnancies:</label>
             <input type="number" id="pregnancies" name="pregnancies" required>
@@ -111,7 +179,6 @@
 
             <button type="submit">Predict Diabetes</button>
         </form>
-
 
         <div class="result">
             <h3>{{ prediction_text if prediction_text else "Waiting for result..." }}</h3>
